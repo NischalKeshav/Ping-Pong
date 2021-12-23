@@ -36,10 +36,14 @@ class Ball:
     if pos[2] >= 500:
       random.shuffle(posangles)
       self.x = -3
-def paddle
+class paddle:
+  def __init__(self,canvas,color):
+    self.canvas = canvas
+    self.id = canvas.create_rectangle(0,0,100,10,fill=color)
+    self.canvas.move(self.id,200,300)
 ball = Ball(canvas,'red')
-
-while 1 :
+paddle(canvas,'green')
+while True:
   ball.draw()
   tk.update_idletasks()
   tk.update()
