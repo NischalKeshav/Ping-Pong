@@ -36,7 +36,7 @@ class Ball:
     if pos[2] >= 500:
       random.shuffle(posangles)
       self.x = -3
-
+def paddle
 ball = Ball(canvas,'red')
 
 while 1 :
