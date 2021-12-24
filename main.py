@@ -11,8 +11,13 @@ tk.update()
 angles = [-2,-3,1,-1,2,3,5]
 posangles = [1,2,3]
 negangles = [-2,-1,-3]
-gameover = False
+g = False
 class Ball:
+  def false(x):
+    if x == True:
+      return True
+    else:
+      return False
   def __init__(self,canvas,paddle,color):
     self.canvas = canvas
     self.paddle = paddle
@@ -31,11 +36,13 @@ class Ball:
     self.canvas.move(self.id,self.x,self.y)
     pos = self.canvas.coords(self.id )
     if pos[1] <= 0:
-      self.y = 2
+      self.y = +3
       random.shuffle(angles)
       self.x = angles[1] 
     if pos[3] >=self.canvas_height:
-      self.y = -2
+      self.y = 0
+      self.x = 0 
+      canvas.create_text(250,50,text='Game Over', font=('Times',30))
     if self.strike(self.canvas.coords(self.id))== True:
       self.y = -3
       random.shuffle(angles)
@@ -75,9 +82,10 @@ class paddle:
 
 paddle = paddle(canvas,'green')
 ball = Ball(canvas,paddle,'red')
-while True:
+while 1:
   paddle.draw()
   ball.draw()
   tk.update_idletasks()
   tk.update()
   time.sleep(0.01)
+  
