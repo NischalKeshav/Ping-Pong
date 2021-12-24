@@ -73,7 +73,8 @@ class paddle:
 
     def right(self, evt):
         self.x = 3
-
+    def stop(self,evt):
+      self.x = 0
     def __init__(self, canvas, color):
         self.canvas = canvas
         self.id = canvas.create_rectangle(0, 0, 100, 10, fill=color)
@@ -82,7 +83,8 @@ class paddle:
         self.canvas_width = self.canvas.winfo_width()
         self.canvas.bind_all('<KeyPress-Left>', self.left)
         self.canvas.bind_all('<KeyPress-Right>', self.right)
-
+        self.canvas.bind_all('<KeyPress-Up>', self.stop)
+        self.canvas.bind_all('<KeyPress-Down>', self.stop)
     def draw(self):
         pos = self.canvas.coords(self.id)
         if pos[0] <= 0:
@@ -98,14 +100,16 @@ paddle = paddle(canvas, 'green')
 ball = Ball(canvas, paddle, 'red')
 score = 0
 scorestring = ("Score " + str(score))
-x = canvas.create_text(80, 60, text=scorestring, font=('Times', 15))
+x = canvas.create_text(60, 60, text=scorestring, font=('Times', 15))
 while 1:
     if ball.y != 0:
-        paddle.draw()
-        ball.draw()
-        score = score + 1
-        scorestring = ("Score " + str(score))
-        canvas.itemconfig(x, text=scorestring)
+      paddle.draw()
+      ball.draw()
+      score = score + 1
+      scorestring = ("Score " + str(score))
+      canvas.itemconfig(x, text=scorestring)
+    else:
+      break
     tk.update_idletasks()
     tk.update()
     time.sleep(0.01)
