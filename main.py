@@ -14,7 +14,8 @@ posangles = [1, 2, 3]
 negangles = [-2, -1, -3]
 g = False
 score = 0
-time.sleep(2)
+print("Click the  Ping pong screen with your mouse screen and wait a bit ")
+time.sleep(4)
 
 
 class Ball:
