@@ -41,9 +41,12 @@ class paddle:
     self.canvas = canvas
     self.id = canvas.create_rectangle(0,0,100,10,fill=color)
     self.canvas.move(self.id,200,300)
+  def draw(self):
+    pass
 ball = Ball(canvas,'red')
 paddle(canvas,'green')
 while True:
+  paddle.draw
   ball.draw()
   tk.update_idletasks()
   tk.update()
