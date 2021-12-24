@@ -11,8 +11,9 @@ tk.update()
 angles = [-2,-3,1,-1,2,3,5]
 posangles = [1,2,3]
 negangles = [-2,-1,-3]
+gameover = False
 class Ball:
-  def __init__(self,canvas,color,paddle):
+  def __init__(self,canvas,paddle,color):
     self.canvas = canvas
     self.paddle = paddle
     self.id = canvas.create_oval(10,10,25,25,fill=color)
@@ -21,9 +22,9 @@ class Ball:
     self.y = -3
     self.canvas_height = self.canvas.winfo_height()
   def strike (self,pos):
-    paddle_pos = self.canvas.coords(self,paddle.id)
+    paddle_pos = self.canvas.coords(self.paddle.id)
     if pos[2]>= paddle_pos[0] and pos[0] <= paddle_pos[2]:
-      if pos[3] >= paddle_pos[1] and pos [3] <= paddle-pos[3]:
+      if pos[3] >= paddle_pos[1] and pos [3] <= paddle_pos[3]:
         return True
     return False 
   def draw(self):
@@ -71,8 +72,9 @@ class paddle:
         self.x = 0
     self.canvas.move(self.id,self.x,0)
     
-ball = Ball(canvas,'red',paddle)
+
 paddle = paddle(canvas,'green')
+ball = Ball(canvas,paddle,'red')
 while True:
   paddle.draw()
   ball.draw()
