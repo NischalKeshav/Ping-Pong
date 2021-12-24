@@ -12,13 +12,20 @@ angles = [-2,-3,1,-1,2,3,5]
 posangles = [1,2,3]
 negangles = [-2,-1,-3]
 class Ball:
-  def __init__(self,canvas,color):
+  def __init__(self,canvas,color,paddle):
     self.canvas = canvas
+    self.paddle = paddle
     self.id = canvas.create_oval(10,10,25,25,fill=color)
     self.canvas.move(self.id,245,100)
     self.x = 0
     self.y = -3
     self.canvas_height = self.canvas.winfo_height()
+  def strike (self,pos):
+    paddle_pos = self.canvas.coords(self,paddle.id)
+    if pos[2]>= paddle_pos[0] and pos[0] <= paddle_pos[2]:
+      if pos[3] >= paddle_pos[1] and pos [3] <= paddle-pos[3]:
+        return True
+    return False 
   def draw(self):
     self.canvas.move(self.id,self.x,self.y)
     pos = self.canvas.coords(self.id )
@@ -28,6 +35,8 @@ class Ball:
       self.x = angles[1] 
     if pos[3] >=self.canvas_height:
       self.y = -2
+    if self.strike(self.canvas.coords(self.id))== True:
+      self.y = -3
       random.shuffle(angles)
       self.x = angles[2] 
     if pos[0] <= 0:
@@ -62,7 +71,7 @@ class paddle:
         self.x = 0
     self.canvas.move(self.id,self.x,0)
     
-ball = Ball(canvas,'red')
+ball = Ball(canvas,'red',paddle)
 paddle = paddle(canvas,'green')
 while True:
   paddle.draw()
