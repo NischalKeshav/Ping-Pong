@@ -12,6 +12,8 @@ angles = [-2,-3,1,-1,2,3,5]
 posangles = [1,2,3]
 negangles = [-2,-1,-3]
 g = False
+score = 0
+time.sleep(2)
 class Ball:
   def false(x):
     if x == True:
@@ -32,6 +34,9 @@ class Ball:
       if pos[3] >= paddle_pos[1] and pos [3] <= paddle_pos[3]:
         return True
     return False 
+    score =+ 1
+    score = ("Score  :" + str(score) ) 
+    canvas.create_text(350,50,text=score)
   def draw(self):
     self.canvas.move(self.id,self.x,self.y)
     pos = self.canvas.coords(self.id )
@@ -56,10 +61,10 @@ class Ball:
 
 class paddle:
   def left(self,evt):
-    self.x = -2.5
+    self.x = -3
   
   def right(self,evt):
-    self.x = 2.5
+    self.x = 3
   def __init__(self,canvas,color):
     self.canvas = canvas
     self.id = canvas.create_rectangle(0,0,100,10,fill=color)
@@ -72,10 +77,10 @@ class paddle:
   def draw(self):
     pos = self.canvas.coords(self.id)
     if pos[0] <= 0 :
-      if  self.x == -2.5: 
+      if  self.x == -3: 
         self.x = 0
     if pos[2] >= self.canvas_width:
-      if self.x ==2.5:
+      if self.x ==3:
         self.x = 0
     self.canvas.move(self.id,self.x,0)
     
