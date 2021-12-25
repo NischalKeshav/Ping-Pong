@@ -15,6 +15,7 @@ negangles = [-2, -1, -3]
 g = False
 score = 0
 print("Click the  Ping pong screen with your mouse screen and wait a bit ")
+print ("Use the arrow keys to move around the paddle ")
 time.sleep(4)
 
 
@@ -55,9 +56,7 @@ class Ball:
             self.x = 0
             canvas.create_text(250, 50, text='Game Over', font=('Times', 30))
         if self.strike(self.canvas.coords(self.id)) == True:
-            self.y = -2.25
-            random.shuffle(angles)
-            self.x = angles[2]
+            self.y = -(self.y)
 
         if pos[0] <= 0:
             random.shuffle(negangles)
