@@ -56,7 +56,7 @@ class Ball:
             self.x = 0
             canvas.create_text(250, 50, text='Game Over', font=('Times', 30))
         if self.strike(self.canvas.coords(self.id)) == True:
-            self.y = -(self.y)
+            self.y = -3.4 
 
         if pos[0] <= 0:
             random.shuffle(negangles)
