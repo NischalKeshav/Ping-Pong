@@ -17,8 +17,7 @@ score = 0
 print("Click the  Ping pong screen with your mouse screen and wait a bit ")
 print ("Use the arrow keys to move around the paddle ")
 time.sleep(4)
-
-
+lives = 3
 class Ball:
     def false(x):
         if x == True:
@@ -31,8 +30,10 @@ class Ball:
         self.paddle = paddle
         self.id = canvas.create_oval(10, 10, 25, 25, fill=color)
         self.canvas.move(self.id, 245, 100)
-        self.x = 0
-        self.y = -3
+        random.shuffle(angles)
+        self.x = angles[0]
+        self.y = -2
+        self.live = 0 
         self.canvas_height = self.canvas.winfo_height()
 
     def strike(self, pos):
@@ -48,13 +49,11 @@ class Ball:
         self.canvas.move(self.id, self.x, self.y)
         pos = self.canvas.coords(self.id)
         if pos[1] <= 0:
-            self.y = 2.2
-            random.shuffle(angles)
-            self.x = angles[1]
+            self.y = 3
         if pos[3] >= self.canvas_height:
             self.y = 0
             self.x = 0
-            canvas.create_text(250, 50, text='Game Over', font=('Times', 30))
+            ball.live = 1
         if self.strike(self.canvas.coords(self.id)) == True:
             self.y = -3.4 
 
@@ -95,20 +94,44 @@ class paddle:
         self.canvas.move(self.id, self.x, 0)
 
 
-paddle = paddle(canvas, 'green')
+paddle = paddle(canvas, 'blue')
 ball = Ball(canvas, paddle, 'red')
 score = 0
 scorestring = ("Score " + str(score))
-x = canvas.create_text(60, 60, text=scorestring, font=('Times', 15))
+x = canvas.create_text(65, 30, text=scorestring, font=('Times', 15))
+livestring  = ("lives:"+ str(lives)) 
+live = canvas.create_text(65,70,text = livestring,font=('Times',15),fill ='Black')
 while 1:
-    if ball.y != 0:
-      paddle.draw()
-      ball.draw()
-      score = score + 1
-      scorestring = ("Score " + str(score))
-      canvas.itemconfig(x, text=scorestring)
-    else:
+    if lives !=0:
+      if ball.live != 1:
+        paddle.draw()
+        ball.draw()
+        score = score + 1
+        scorestring = ("Score " + str(score))
+        canvas.itemconfig(x, text=scorestring)
+      else:
+        lives = lives -1
+        if lives != 0:
+          ball.canvas.move (ball,0,300)
+          ball.y = -15
+          ball.x = -1.2
+          ball.draw()
+          livestring = ("lives:"+ str(lives)) 
+          canvas.itemconfig(live,text=livestring )
+          ball.live =0 
+          time.sleep(1)
+        else :
+          livestring = ("lives:"+ str(lives)) 
+          canvas.itemconfig(live,text='Lives:0')
+          time.sleep(.2)
+          canvas.create_text(250, 50, text='Game Over', font=('Times', 30),fill= 'Red')
+          tk.update_idletasks()
+          tk.update()
+          break
+      tk.update_idletasks()
+      tk.update()
+      time.sleep(0.01)
+    if lives==0 :
+      canvas.create_text(250, 50, text='Game Over', font=('Times', 30),fill= 'Red')
       break
-    tk.update_idletasks()
-    tk.update()
-    time.sleep(0.01)
+
